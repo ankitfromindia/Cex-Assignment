@@ -10,7 +10,7 @@ class Products extends Admin_Controller {
     public function initialize()
     {
         // load the language files
-        $this->lang->load('products');
+        $this->lang->load(['products', 'categories']);
 
         // load the categories model
         $this->load->model(['products_model', 'categories_model']);
@@ -79,13 +79,32 @@ class Products extends Admin_Controller {
     
     function add($id = null)
     {
+        $this->form_validation->set_rules('category_id', lang('products input category'), 'required|trim');
+        
         $this->form_validation->set_rules('name', lang('products input name'), 'required|trim|min_length[5]|max_length[30]|callback__check_name[]');
         $this->form_validation->set_rules('description', lang('products input description'), 'required|trim|alpha_numeric_spaces');
-        $this->form_validation->set_rules('image', lang('products input image'), 'callback_file_selected_test');
+        if(empty($id))
+        {
+            $this->form_validation->set_rules('image', lang('products input image'), 'callback_file_selected_test');
+        }
         $this->form_validation->set_rules('quantity', lang('products input quantity'), 'required|trim|integer');
         $this->form_validation->set_rules('price', lang('products input price'), 'required|trim|decimal');
         
+        $categories = $this->categories_model->get_by_fields(['deleted' => 0, 'parent_id' => 0])->result_array();
         
+        $category_dropdown[''] =  '--' . lang('categories input choose_category') . '--';
+        foreach($categories as $cat)
+        {
+            
+            $sub_categories = $this->categories_model->get_by_fields(['deleted' => 0, 'parent_id' => $cat['id']])->result_array();
+            foreach($sub_categories as $subcat)
+            {
+                $category_dropdown[$cat['name']][$subcat['id']] = $subcat['name'];
+            }
+        }
+        $this->set_content_data([
+            'category' =>$category_dropdown
+        ]);
         
         parent::add($id);
         
@@ -145,9 +164,11 @@ class Products extends Admin_Controller {
             redirect($this->_redirect_url);
         }
         $data['saved_product'] = $this->products_model->get_by_id($id);
+        //echo '<pre>';print_r($data); exit;
         $this->set_content_data($data);
         
         $this->add($id);
+        //redirect($this->_redirect_url);
     }
 
 

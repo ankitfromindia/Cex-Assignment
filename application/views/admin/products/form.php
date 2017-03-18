@@ -6,7 +6,14 @@
 <?php if (isset($product_id)) : ?>
     <?php echo form_hidden('id', $product_id); ?>
 <?php endif; ?>
-
+<div class="row">
+        <?php // language ?>
+        <div class="form-group col-sm-6<?php echo form_error('parent_id') ? ' has-error' : ''; ?>">
+            <?php echo form_label(lang('products input category'), 'category_id', array('class'=>'control-label')); ?>
+            
+            <?php echo form_dropdown('category_id', $category, set_value('category_id', isset($saved_product['category_id']) ? $saved_product['category_id'] : 0) , 'id="category_id" class="form-control"');?>
+        </div>
+    </div>
 <div class="row">
     <?php // product name?>
     <div class="form-group col-sm-4<?php echo form_error('name') ? ' has-error' : ''; ?>">

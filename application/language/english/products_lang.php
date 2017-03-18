@@ -1,6 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 $lang['products input name']  = "Name";
+$lang['products input category']  = "Category";
 $lang['products input price']  = "Price";
 $lang['products input description']  = "Description";
 $lang['products input quantity']  = "Quantity";
@@ -9,12 +10,15 @@ $lang['products input is_active']  = "Is Active ?";
 
 // Messages
 $lang['products msg add_success']           = "%s was successfully added!";
+$lang['products msg update_success']           = "%s was successfully updated!";
 $lang['products msg delete_confirm']             = "Are you sure you want to delete <strong>%s</strong>? This can not be undone.";
 $lang['products msg delete']                = "You have succesfully deleted <strong>%s</strong>!";
 $lang['products msg add_success']  = "Product Added Successfully";
 $lang['products msg add_failed']  = "Problem Adding Product";
+$lang['products msg update_failed']  = "Problem Updating Product";
 
 $lang['products title add'] = 'Add Product';
+$lang['products title update'] = 'Update Product';
 $lang['products title edit_category'] = 'Edit Product';
 $lang['products title list'] = 'Products';
 $lang['products tooltip add_new'] = 'Add Product';

@@ -2,6 +2,8 @@
 
 $lang['categories input name']  = "Category Name";
 $lang['categories input parent']  = "Parent";
+$lang['categories input choose_category']  = "Choose a Category";
+
 
 // Messages
 $lang['categories msg add_success']           = "%s was successfully added!";

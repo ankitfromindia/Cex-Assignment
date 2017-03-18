@@ -15,7 +15,7 @@ class Products_model extends MY_Model
 {
    protected $_db = 'products';
    
-   protected $fillable = ['name', 'image', 'price', 'quantity', 'description', 'is_active'];
+   protected $fillable = ['category_id', 'name', 'image', 'price', 'quantity', 'description', 'is_active'];
    
    public function in_stock(int $product_id, int $quantity_required = 0)
    {

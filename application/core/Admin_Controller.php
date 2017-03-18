@@ -85,7 +85,7 @@ abstract class Admin_Controller extends MY_Controller
     protected $content_data = [];
     protected function set_content_data($array = [])
     {
-        $this->content_data = $array;
+        $this->content_data = array_merge($this->content_data, $array);
     }
     private $add_link;
     protected function set_add_link($link)
@@ -202,6 +202,7 @@ abstract class Admin_Controller extends MY_Controller
     function saved($saved, $update = false)
     {
         $string = $update ? 'update' : 'add';
+        
         if ($saved)
         {
             $this->session->set_flashdata('message', lang($this->get_identifier() . ' msg '.$string.'_success'));
@@ -219,7 +220,7 @@ abstract class Admin_Controller extends MY_Controller
         
         if ($this->form_validation->run() == TRUE)
         {
-            echo 'hi'; exit;
+            
             // save the new item
             if($id)
             {
@@ -230,19 +231,14 @@ abstract class Admin_Controller extends MY_Controller
                 $saved = $this->get_model()->add($this->input->post());
                 
             }
-            echo $this->db->last_query(); exit;
+            $this->saved($saved, empty($id) ? true : false);
             
-            $this->saved($saved, !empty($id));
             
-
             
             // return to list and display message
             redirect($this->_redirect_url);
         }
-        else
-        {
-            print_r(validation_errors());
-        }
+        
         $string = !empty($id) ? 'update' : 'add';
         // setup page header data
         $this->set_title(lang($this->get_identifier() . ' title '.$string));

@@ -60,7 +60,7 @@ class Categories extends Admin_Controller {
     function index()
     {
         $this->js_files = 'categories_i18n.js';
-        $this->page_title = lang('categories title list_cat');
+        $this->page_title = lang('categories title list');
         
         $this->add_column('id');
         $this->add_column('name');
@@ -72,7 +72,7 @@ class Categories extends Admin_Controller {
     /**
      * Add new user
      */
-    function add()
+    function add($id = null)
     {
         // validators
         $this->form_validation->set_error_delimiters($this->config->item('error_delimeter_left'), $this->config->item('error_delimeter_right'));
@@ -166,10 +166,10 @@ class Categories extends Admin_Controller {
         }
 
         // setup page header data
-        $this->set_title( lang('categories title edit_category') );
+        $this->set_title( lang('categories title edit') );
 
         $data = $this->includes;
-        $all_categories = $this->categories_model->get_by_fields(['deleted' => 0, 'parent_id' => 0]);
+        $all_categories = $this->categories_model->get_by_fields(['deleted' => 0, 'parent_id' => 0])->result_array();
         
         $parent_category_array['0'] =  '--' . lang('categories input parent') . '--';
         foreach($all_categories as $cat)

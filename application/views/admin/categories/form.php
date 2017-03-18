@@ -21,7 +21,7 @@
         <div class="form-group col-sm-6<?php echo form_error('parent_id') ? ' has-error' : ''; ?>">
             <?php echo form_label(lang('categories input parent'), 'parent', array('class'=>'control-label')); ?>
             
-            <?php echo form_dropdown('parent_id', $category, isset($saved_category['parent_id'])?:0 , 'id="parent_id" class="form-control"');?>
+            <?php echo form_dropdown('parent_id', $category, isset($saved_category['parent_id']) ? $saved_category['parent_id'] : 0 , 'id="parent_id" class="form-control"');?>
         </div>
     </div>
 
